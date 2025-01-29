@@ -61,7 +61,7 @@ async def superbreakers(request: JsonRequest):
         logger.info(f"Received data: {data}")
         
         # Use SKU as unique identifier
-        filter_query = {"sku": data.get("sku")}
+        filter_query = {"product_code": data.get("product_code")}
         
         # Update or insert the document
         result = collection.update_one(
@@ -91,14 +91,14 @@ async def search_products(request: JsonRequest):
         logger.info(f"Searching for SKU: {data.get('sku')}")
         
         # Get total count for search results
-        total_count = collection.count_documents({"sku": data["sku"]})
+        total_count = collection.count_documents({"product_code": data["product_code"]})
         
         # Get paginated search results
-        products = list(collection.find({"sku": data["sku"]})
+        products = list(collection.find({"product_code": data["product_code"]})
                        .skip(skip)
                        .limit(page_size))
         
-        # Calculate total pages
+        # Calculate total pages 
         total_pages = ceil(total_count / page_size)
         
         # Convert to JSON-serializable format
