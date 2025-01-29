@@ -35,13 +35,13 @@ class SpiderSpider(scrapy.Spider):
     def parse(self, response):
         container = response.xpath('//section')
         products = container.xpath('.//div[@class="v-product"]')
-        # for product in products:
-        product = products[0]
-        product_link = product.xpath('.//a[@class="v-product__img"]/@href').get()
-        yield scrapy.Request(
-            url=product_link, 
-            callback=self.parse_product
-        )
+        for product in products:
+        # product = products[0]
+            product_link = product.xpath('.//a[@class="v-product__img"]/@href').get()
+            yield scrapy.Request(
+                url=product_link, 
+                callback=self.parse_product
+            )
         # Handle pagination
         current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
         total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
