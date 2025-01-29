@@ -66,7 +66,7 @@ class SpiderSpider(scrapy.Spider):
         availability = 'NA'
         product_code = 'NA'
         try:
-            our_price ='$' + response.xpath('//div[@class="product_productprice"]/text()').get()
+            our_price = response.xpath('//div[@class="product_productprice"]/text()').get()
         except:
             our_price = 'NA'
         try:
