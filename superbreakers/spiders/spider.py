@@ -43,14 +43,14 @@ class SpiderSpider(scrapy.Spider):
             callback=self.parse_product
         )
         # Handle pagination
-        # current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
-        # total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
-        # if current_page <= total_pages:
-        #     print("current_page", current_page)
-        #     print("total_pages", total_pages)
-        #     next_page = f"{response.url}?searching=Y&sort=13&cat=45&show=150&page={current_page + 1}"
-        #     print(f"Following next page: {next_page}")
-        #     yield response.follow(next_page, self.parse)
+        current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
+        total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
+        if current_page <= total_pages:
+            print("current_page", current_page)
+            print("total_pages", total_pages)
+            next_page = f"{response.url}?searching=Y&sort=13&cat=45&show=150&page={current_page + 1}"
+            print(f"Following next page: {next_page}")
+            yield response.follow(next_page, self.parse)
 
     def parse_product(self, response):
         title = response.xpath('//span[@itemprop="name"]//text()').get()
@@ -66,9 +66,7 @@ class SpiderSpider(scrapy.Spider):
         availability = 'NA'
         product_code = 'NA'
         try:
-            print("our_price", response.xpath('//div[@class="product_productprice"]/text()').get())
-            our_price ='$' + response.xpath('//div[@class="product_productprice"]/text()').re_first(r'Our Price\s*:\s*\$(\d+\.\d+)')
-            
+            our_price ='$' + response.xpath('//div[@class="product_productprice"]/text()').get()
         except:
             our_price = 'NA'
         try:
