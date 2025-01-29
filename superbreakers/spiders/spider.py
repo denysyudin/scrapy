@@ -55,7 +55,7 @@ class SpiderSpider(scrapy.Spider):
 
     def parse_product(self, response):
         title = response.xpath('//span[@itemprop="name"]//text()').get()
-        image_url = "https:" + response.xpath('//div[@class="vCSS_img_product_photo" and @id="product_photo"]/@src').get()
+        image_url = "https:" + response.xpath('//img[@class="vCSS_img_product_photo" and @id="product_photo"]/@src').get()
         # Create a JSON structure
         our_price = 'NA'
         sale_price = 'NA'
