@@ -5,21 +5,21 @@ class SpiderSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["circuitbreakerswarehouse.com"]
     start_urls = ["https://www.circuitbreakerwarehouse.com/category-s/45.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/46.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/47.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/48.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/49.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/50.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/51.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/52.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/53.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/54.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/55.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/56.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/57.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/58.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/59.htm",
-                  "https://www.circuitbreakerwarehouse.com/category-s/60.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/46.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/47.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/48.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/49.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/50.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/51.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/52.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/53.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/54.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/55.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/56.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/57.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/58.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/59.htm",
+                #   "https://www.circuitbreakerwarehouse.com/category-s/60.htm",
                   ]
 
     custom_settings = {
@@ -37,14 +37,9 @@ class SpiderSpider(scrapy.Spider):
         products = container.xpath('.//div[@class="v-product"]')
         for product in products:
             product_link = product.xpath('.//a[@class="v-product__img"]/@href').get()
-            print("product_link", product_link)
             yield scrapy.Request(
                 url=product_link, 
-                callback=self.parse_product,
-                meta={
-                    'product_link': product_link,
-                    'previous_page': response.url  # Store the list page URL
-                }
+                callback=self.parse_product
             )
         # Handle pagination
         current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
