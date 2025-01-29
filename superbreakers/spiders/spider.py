@@ -33,14 +33,11 @@ class SpiderSpider(scrapy.Spider):
         self.manufactures_list = []
 
     def parse(self, response):
-        print("response", response)
         container = response.xpath('//section')
-        print("container", container)
         products = container.xpath('.//div[@class="v-product"]')
-        print("products", products)
         for product in products:
             product_link = product.xpath('.//a[@class="v-product__img"]/@href').get()
-
+            print("product_link", product_link)
             yield scrapy.Request(
                 url=product_link, 
                 callback=self.parse_product,
