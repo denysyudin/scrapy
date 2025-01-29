@@ -50,8 +50,8 @@ class SpiderSpider(scrapy.Spider):
                 }
             )
         # Handle pagination
-        current_page = response.xpath('//input[@title="Go to page"]/@value').get()
-        total_pages = response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)')
+        current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
+        total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
         if current_page <= total_pages:
             next_page = f"{response.url}?searching=Y&sort=13&cat=45&show=150&page={current_page + 1}"
             print(f"Following next page: {next_page}")
