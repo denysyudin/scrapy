@@ -35,7 +35,7 @@ class SpiderSpider(scrapy.Spider):
     def parse(self, response):
 
         container = response.xpath('//section[@role="menu" and @class="col-xs-12 col-md-9"]//div[@class="v-product-grid"]')
-        
+        print("container", container)
         products = container.xpath('.//div[@class="v-product"]')
         print("products", products)
         for product in products:
