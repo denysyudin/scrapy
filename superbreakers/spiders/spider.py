@@ -4,7 +4,23 @@ import scrapy
 class SpiderSpider(scrapy.Spider):
     name = "spider"
     allowed_domains = ["circuitbreakerswarehouse.com"]
-    start_urls = ["https://www.circuitbreakerwarehouse.com/Default.asp"]
+    start_urls = ["https://www.circuitbreakerwarehouse.com/category-s/45.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/46.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/47.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/48.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/49.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/50.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/51.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/52.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/53.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/54.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/55.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/56.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/57.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/58.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/59.htm",
+                  "https://www.circuitbreakerwarehouse.com/category-s/60.htm",
+                  ]
 
     custom_settings = {
         "DOWNLOAD_DELAY": 1,
@@ -14,13 +30,7 @@ class SpiderSpider(scrapy.Spider):
     
     def __init__(self, *args, **kwargs):
         super(SpiderSpider, self).__init__(*args, **kwargs)
-        self.processed_items = set()
-
-    def start_requests(self, response):
-        manufactures_list = response.xpath('//nav[@class="menu" and @id="display_menu_1"]//ul//li')
-        for manufacture in manufactures_list:
-            manufacture_link = manufacture.xpath('.//a/@href').get()
-            yield response.follow(manufacture_link, self.parse)
+        self.manufactures_list = []
 
     def parse(self, response):
 
