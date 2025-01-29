@@ -37,7 +37,6 @@ class SpiderSpider(scrapy.Spider):
         products = container.xpath('.//div[@class="v-product"]')
         # for product in products:
         product = products[0]
-        print("product", product)
         product_link = product.xpath('.//a[@class="v-product__img"]/@href').get()
         yield scrapy.Request(
             url=product_link, 
@@ -68,6 +67,7 @@ class SpiderSpider(scrapy.Spider):
         product_code = 'NA'
         try:
             our_price ='$' + response.xpath('//div[@class="product_productprice"]/strong/span/text()').re_first(r'Our Price\s*:\s*\$(\d+\.\d+)')
+            print("our_price", response.xpath('//div[@class="product_productprice"]/strong/span/text()'))
         except:
             our_price = 'NA'
         try:
