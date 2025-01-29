@@ -55,6 +55,7 @@ class SpiderSpider(scrapy.Spider):
             yield response.follow(next_page, self.parse)
 
     def parse_product(self, response):
+        print("parse_product")
         title = response.xpath('//span[@itemprop="name"]//text()').get()
         image_url = "https:" + response.xpath('//div[@class="vCSS_img_product_photo" and @id="product_photo"]/@src').get()
         # Create a JSON structure
