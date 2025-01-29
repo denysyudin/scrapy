@@ -123,5 +123,5 @@ class SpiderSpider(scrapy.Spider):
         }     
         # Send the JSON data to the API
         # print(product_data)
-        response = requests.post("http://127.0.0.1:8000/superbreakers", json=product_data)
+        response = requests.post("http://127.0.0.1:8000/api/superbreakers", json=product_data)
         print(response.status_code)
