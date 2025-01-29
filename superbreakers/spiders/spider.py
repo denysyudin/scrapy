@@ -37,7 +37,7 @@ class SpiderSpider(scrapy.Spider):
         container = response.xpath('//section[@role="menu" and @class="col-xs-12 col-md-9"]//div[@class="v-product-grid"]')
         
         products = container.xpath('.//div[@class="v-product"]')
-        
+        print("products", products)
         for product in products:
             product_link = product.xpath('.//a[@class="v-product__img"]/@href').get()
 
