@@ -48,7 +48,10 @@ class SpiderSpider(scrapy.Spider):
         if current_page <= total_pages:
             print("current_page", current_page)
             print("total_pages", total_pages)
-            next_page = f"{response.url}?searching=Y&sort=13&cat=45&show=150&page={current_page + 1}"
+            if current_page == 1:
+                next_page = f"{response.url}?searching=Y&sort=13&cat=45&show=150&page={current_page + 1}"
+            else:
+                next_page = response.url.replace(f"page={current_page}", f"page={current_page + 1}")
             print(f"Following next page: {next_page}")
             yield response.follow(next_page, self.parse)
 
@@ -66,7 +69,7 @@ class SpiderSpider(scrapy.Spider):
         availability = 'NA'
         product_code = 'NA'
         try:
-            our_price = response.xpath('//div[@class="product_productprice"]/text()').get()
+            our_price = response.xpath('//div[@class="product_productprice"]/text()').get().strip().replace(':', '')
         except:
             our_price = 'NA'
         try:
