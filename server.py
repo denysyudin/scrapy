@@ -52,7 +52,7 @@ class JsonRequest(BaseModel):
 
 # MongoDB collections
 db = client['sample_mflix']
-collection = db['superbreakers']
+collection = db['circuitbreakers']
 
 @app.post("/api/superbreakers")
 async def superbreakers(request: JsonRequest):
