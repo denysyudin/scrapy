@@ -3,8 +3,8 @@ import scrapy
 
 class SpiderSpider(scrapy.Spider):
     name = "spider"
-    allowed_domains = ["circuitbreakerswarehouse.com"]
-    start_urls = ["https://circuitbreakerwarehouse.com/category-s/45.htm",
+    allowed_domains = ["circuitbreakerwarehouse.com"]
+    start_urls = ["https://www.circuitbreakerwarehouse.com/category-s/45.htm",
                 #   "https://www.circuitbreakerwarehouse.com/category-s/46.htm",
                 #   "https://www.circuitbreakerwarehouse.com/category-s/47.htm",
                 #   "https://www.circuitbreakerwarehouse.com/category-s/48.htm",
