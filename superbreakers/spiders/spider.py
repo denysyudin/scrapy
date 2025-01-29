@@ -1,7 +1,5 @@
-import re
 import requests
 import scrapy
-from bs4 import BeautifulSoup, Tag
 
 class SpiderSpider(scrapy.Spider):
     name = "spider"
