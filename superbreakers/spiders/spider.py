@@ -47,7 +47,10 @@ class SpiderSpider(scrapy.Spider):
             current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
         except:
             current_page = -1
-        total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
+        try:
+            total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
+        except:
+            total_pages = -1
         if current_page == -1:
             pass
         elif current_page <= total_pages:
