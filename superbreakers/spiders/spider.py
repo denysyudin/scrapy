@@ -43,16 +43,19 @@ class SpiderSpider(scrapy.Spider):
                 callback=self.parse_product
             )
         # Handle pagination
-        current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
+        try:
+            current_page = int(response.xpath('//input[@title="Go to page"]/@value').get())
+        except:
+            current_page = -1
         total_pages = int(response.xpath('//nobr/font/b/font/b/text()').re_first(r'of (\d+)'))
-        if current_page <= total_pages:
-            print("current_page", current_page)
-            print("total_pages", total_pages)
+        if current_page == -1:
+            pass
+        elif current_page <= total_pages:
             if current_page == 1:
                 next_page = f"{response.url}?searching=Y&sort=13&cat=45&show=150&page={current_page + 1}"
             else:
                 next_page = response.url.replace(f"page={current_page}", f"page={current_page + 1}")
-            print(f"Following next page: {next_page}")
+            # print(f"Following next page: {next_page}")
             yield response.follow(next_page, self.parse)
 
     def parse_product(self, response):
