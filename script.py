@@ -74,7 +74,8 @@ class RelectricCircuitBreakerScraper:
             'new_price': new_price,
             'specifications': specifications
         }
-        print(product_data)
+        response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
+        print(response.json())
 
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
@@ -87,7 +88,7 @@ class RelectricCircuitBreakerScraper:
             
             for product_link in product_links:
                 self.scrape_product(product_link)
-            
+            self.driver.close()
             try:
                 print('next')
                 pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
