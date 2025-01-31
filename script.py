@@ -50,14 +50,14 @@ class RelectricCircuitBreakerScraper:
         price_container = self.driver.find_element(By.XPATH, '//div[@id="product-buy-box"]')
         price_list = price_container.find_elements(By.XPATH, './/p[@class="price-att"]')
         title_list = price_container.find_elements(By.XPATH, './/span[@class="name-att"]')
-        for index, title in enumerate(title_list):
-            if title.text.lower() == 're-certified':
+        for index, name in enumerate(title_list):
+            if name.text.lower() == 're-certified':
                 re_certified_price = price_list[index].text.strip('$').replace(',', '')
-            elif title.text.lower() == 're-certified plus':
+            elif name.text.lower() == 're-certified plus':
                 pass
-            elif title.text.lower() == 'new':
+            elif name.text.lower() == 'new':
                 new_price = price_list[index].text.strip('$').replace(',', '')
-            elif title.text.lower() == 'new surplus':
+            elif name.text.lower() == 'new surplus':
                 new_price = price_list[index].text.strip('$').replace(',', '')
         re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
         new_price = float(new_price) if self.is_float(new_price) else 'NA'
@@ -78,7 +78,7 @@ class RelectricCircuitBreakerScraper:
                 'specifications': specifications
             }
         }
-        print(product_data)
+        # print(product_data)
         response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
         print(response.json())
 
