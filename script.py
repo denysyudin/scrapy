@@ -2,6 +2,7 @@ import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import requests
 
 class RelectricCircuitBreakerScraper:
     def __init__(self):
@@ -46,15 +47,17 @@ class RelectricCircuitBreakerScraper:
         
         price_container = self.driver.find_element(By.XPATH, '//div[@id="product-buy-box"]')
         price_list = price_container.find_elements(By.XPATH, './/p[@class="price-att"]')
-        re_certified_price = price_list[0].text
-        re_certified_plus_price = price_list[1].text
-        new_price = price_list[2].text
+        re_certified_price = price_list[0].text.strip('$')
+        re_certified_plus_price = price_list[1].text.strip('$')
+        new_price = price_list[2].text.strip('$')
 
         re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 0
         re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 0
         new_price = float(new_price) if self.is_float(new_price) else 0
         
         re_certified_price = min(re_certified_price, re_certified_plus_price)
+
+
 
         print(title, re_certified_price, new_price, re_certified_plus_price)
     def scrape_all_products(self):
