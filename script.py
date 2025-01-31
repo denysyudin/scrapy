@@ -50,11 +50,12 @@ class RelectricCircuitBreakerScraper:
         re_certified_price = price_list[0].text.strip('$').replace(',', '')
         re_certified_plus_price = price_list[1].text.strip('$').replace(',', '')
         new_price = price_list[2].text.strip('$').replace(',', '')
-        re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 0
-        re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 0
+        re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else -100
+        re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else -100
         new_price = float(new_price) if self.is_float(new_price) else 0
         
-        re_certified_price = min(re_certified_price, re_certified_plus_price)
+        if re_certified_plus_price != -100:
+            re_certified_price = min(re_certified_price, re_certified_plus_price)
 
         specification_table = self.driver.find_elements(By.XPATH, '//table//tbody//tr')
         specifications = {}
@@ -85,6 +86,7 @@ class RelectricCircuitBreakerScraper:
             
             try:
                 next_button = self.driver.find_element(By.XPATH, '//li[@class="ais-Pagination-item ais-Pagination-item--nextPage"]//a')
+                print(next_button)
                 next_button.click()
                 time.sleep(1)
             except:
