@@ -10,6 +10,8 @@ class RelectricCircuitBreakerScraper:
         self.setup_driver()
         self.max_retries = 3
         self.timeout = 10
+        self.product_count = 0
+        self.refresh_interval = 25
 
     def setup_driver(self):
         # Set proxy environment variables
@@ -42,8 +44,16 @@ class RelectricCircuitBreakerScraper:
         except ValueError:
             return False
 
+    def refresh_driver(self):
+        try:
+            self.driver.quit()
+        except Exception as e:
+            pass
+        time.sleep(5)
+        self.setup_driver()
 
-    def sage_get(self, url, max_retries=3):
+
+    def safe_get(self, url, max_retries=3):
         for attempt in range(max_retries):
             try:
                 self.driver.get(url)
@@ -68,7 +78,9 @@ class RelectricCircuitBreakerScraper:
             print('Failed to close driver')
 
     def scrape_product(self, product_url):
-        if not self.sage_get(product_url):
+        if self.product_count >= self.refresh_interval:
+            self.refresh_driver()
+        if not self.safe_get(product_url):
             print('Failed to load URL')
             return
         print(product_url)
@@ -113,14 +125,17 @@ class RelectricCircuitBreakerScraper:
                     'specifications': specifications
                 }
             }
-            print(product_data)
             response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
             print(response.json())
+            self.product_count += 1
+            time.sleep(2)
         except Exception as e:
             print(f"Error scraping product {product_url}: {e}")
+            if "invalid session" in str(e).lower() or 'timeout' in str(e).lower():
+                self.refresh_driver()
 
     def scrape_all_products(self):
-        if not self.sage_get(self.scrape_url):
+        if not self.safe_get(self.scrape_url):
             print('Failed to load URL')
             return
         try:
@@ -136,10 +151,12 @@ class RelectricCircuitBreakerScraper:
                     except Exception as e:
                         print(e)
                         continue
-                if not self.sage_get(self.scrape_url):
+                if not self.safe_get(self.scrape_url):
                     print('Failed to load URL')
                     return
-                self.driver.get(self.scrape_url)
+                if self.product_count % self.refresh_interval == 0:
+                    self.refresh_driver()
+                    self.driver.get(self.scrape_url)
                 try:
                     print('next')
                     pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
@@ -151,6 +168,7 @@ class RelectricCircuitBreakerScraper:
                     break
         except Exception as e:
             print(e)
+            self.refresh_driver()
         finally:
             self.cleanup()
 
