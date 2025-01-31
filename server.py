@@ -61,7 +61,7 @@ async def superbreakers(request: JsonRequest):
         logger.info(f"Received data: {data}")
         
         # Use SKU as unique identifier
-        filter_query = {"product_code": data.get("subtitle")}
+        filter_query = {"subtitle": data.get("subtitle")}
         
         # Update or insert the document
         result = collection.update_one(
