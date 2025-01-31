@@ -88,7 +88,8 @@ class RelectricCircuitBreakerScraper:
             
             for product_link in product_links:
                 self.scrape_product(product_link)
-            self.driver.close()
+            self.driver.get(self.scrape_url)
+            time.sleep(2)
             try:
                 print('next')
                 pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
