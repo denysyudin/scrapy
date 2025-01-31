@@ -46,6 +46,8 @@ class RelectricCircuitBreakerScraper:
         title = title_bar.find_element(By.XPATH, './/h1').text
 
         subtitle = title_bar.find_element(By.XPATH, '//span[@class="h4"]').text.replace('Item # ', '')
+
+        image_url = self.driver.find_element(By.XPATH, '//div[@id="main-image-wrapper"]//img').get_attribute('src')
         
         price_container = self.driver.find_element(By.XPATH, '//div[@id="product-buy-box"]')
         price_list = price_container.find_elements(By.XPATH, './/p[@class="price-att"]')
@@ -75,6 +77,7 @@ class RelectricCircuitBreakerScraper:
             "data":{
                 'title': title,
                 'subtitle': subtitle,
+                'image_url': image_url,
                 're_certified_price': re_certified_price,
                 'new_price': new_price,
                 'specifications': specifications
