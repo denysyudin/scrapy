@@ -1,16 +1,10 @@
-from datetime import datetime
 import os
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-import re
 import time
-import csv
 
 class RelectricCircuitBreakerScraper:
     def __init__(self):
-        self.csv_file = "scraped_data.csv"
         self.scrape_url = "https://www.relectric.com/circuit-breakers/molded-case"
         self.setup_driver()
 
