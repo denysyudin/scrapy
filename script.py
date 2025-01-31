@@ -54,10 +54,13 @@ class RelectricCircuitBreakerScraper:
         re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 'NA'
         new_price = float(new_price) if self.is_float(new_price) else 'NA'
         
-        if re_certified_plus_price != 'NA' and re_certified_price != 'NA':
-            re_certified_price = min(re_certified_price, re_certified_plus_price)
-        elif re_certified_price == 'NA':
+        if re_certified_price == 'NA':
             re_certified_price = re_certified_plus_price
+        elif re_certified_plus_price == 'NA':
+            re_certified_price = re_certified_price
+        else:
+            re_certified_price = min(re_certified_price, re_certified_plus_price)
+            
         specification_table = self.driver.find_elements(By.XPATH, '//table//tbody//tr')
         specifications = {}
         for specification in specification_table:
@@ -86,6 +89,7 @@ class RelectricCircuitBreakerScraper:
                 self.scrape_product(product_link)
             
             try:
+                print('next')
                 next_button = self.driver.find_element(By.XPATH, '//li[@class="ais-Pagination-item ais-Pagination-item--nextPage"]//a')
                 print(next_button)
                 next_button.click()
