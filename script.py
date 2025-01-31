@@ -71,11 +71,13 @@ class RelectricCircuitBreakerScraper:
             specifications[specification_name] = specification_value
 
         product_data = {
-            'title': title,
-            'subtitle': subtitle,
-            're_certified_price': re_certified_price,
-            'new_price': new_price,
-            'specifications': specifications
+            "data":{
+                'title': title,
+                'subtitle': subtitle,
+                're_certified_price': re_certified_price,
+                'new_price': new_price,
+                'specifications': specifications
+            }
         }
         print(product_data)
         response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
