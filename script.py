@@ -84,6 +84,7 @@ class RelectricCircuitBreakerScraper:
 
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
+        page_number = 1
         time.sleep(2)
         while True:
             product_container = self.driver.find_element(By.XPATH, '//ol[@class="ais-Hits-list"]')
@@ -98,12 +99,12 @@ class RelectricCircuitBreakerScraper:
             self.driver.get(self.scrape_url)
             time.sleep(2)
             try:
-                print('next')
                 pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
                 next_button = pagination_container.find_element(By.XPATH, '//li[@class="ais-Pagination-item ais-Pagination-item--nextPage"]//a')
-                print(next_button)
                 self.driver.execute_script("arguments[0].click();", next_button)
-                time.sleep(1)
+                page_number += 1
+                print(f'Page {page_number}')
+                time.sleep(3)
             except Exception as e:
                 print(e)
                 break
