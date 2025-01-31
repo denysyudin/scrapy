@@ -34,7 +34,7 @@ class RelectricCircuitBreakerScraper:
         chrome_options.add_argument("--timeout=10000")
         chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
         self.driver = webdriver.Chrome(options=chrome_options)
-        self.driver.set_page_load_timeout(self.timeout)
+        self.driver.set_page_load_timeout(10)
 
     @staticmethod
     def is_float(string):
