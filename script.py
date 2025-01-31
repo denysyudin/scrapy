@@ -6,7 +6,25 @@ import requests
 
 class RelectricCircuitBreakerScraper:
     def __init__(self):
-        self.scrape_url = "https://www.relectric.com/circuit-breakers/molded-case"
+        self.scrape_url = ["https://www.relectric.com/circuit-breakers/molded-case",
+                           "https://www.relectric.com/circuit-breakers/miniature",
+                           "https://www.relectric.com/circuit-breakers/insulated-case",
+                           "https://www.relectric.com/busway/bus-plugs",
+                           "https://www.relectric.com/busway/tapbox",
+                           "https://www.relectric.com/busway/elbows-and-tees",
+                           "https://www.relectric.com/busway/bus-duct",
+                           "https://www.relectric.com/busway/parts",
+                           "https://www.relectric.com/motor-control/contactors",
+                           "http://relectric.com/motor-control/starters",
+                           "https://www.relectric.com/motor-control/variable-frequency-drives",
+                           "https://www.relectric.com/transformers/general-purpose",
+                           "https://www.relectric.com/transformers/buck-boost",
+                           "https://www.relectric.com/transformers/control-power",
+                           "https://www.relectric.com/automation/plcs",
+                           "https://www.relectric.com/automation/sensors",
+                           "https://www.relectric.com/automation/control-relays",
+                           "https://www.relectric.com/transformers/control-power"]
+
         self.setup_driver()
 
     def setup_driver(self):
@@ -88,33 +106,34 @@ class RelectricCircuitBreakerScraper:
         print(response.json())
 
     def scrape_all_products(self):
-        self.driver.get(self.scrape_url)
-        page_number = 1
-        time.sleep(2)
-        while True:
-            product_container = self.driver.find_element(By.XPATH, '//ol[@class="ais-Hits-list"]')
-            products = product_container.find_elements(By.XPATH, './/li[@class="ais-Hits-item"]')
-            
-            product_links = [product.find_element(By.XPATH, './/a').get_attribute('href') for product in products]
-            
-            for product_link in product_links:
-                self.scrape_product(product_link)
-            self.driver.quit()
-            self.setup_driver()
-            self.driver.get(self.scrape_url)
+        for url in self.scrape_url:
+            self.driver.get(url)
+            page_number = 1
             time.sleep(2)
-            try:
-                for i in range(page_number):
-                    print(f'click {i}')
-                    pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
-                    next_button = pagination_container.find_element(By.XPATH, '//li[@class="ais-Pagination-item ais-Pagination-item--nextPage"]//a')
-                    self.driver.execute_script("arguments[0].click();", next_button)
-                    time.sleep(3)
-                page_number += 1
-                print(f'Page {page_number}')
-            except Exception as e:
-                print(e)
-                break
+            while True:
+                product_container = self.driver.find_element(By.XPATH, '//ol[@class="ais-Hits-list"]')
+                products = product_container.find_elements(By.XPATH, './/li[@class="ais-Hits-item"]')
+                
+                product_links = [product.find_element(By.XPATH, './/a').get_attribute('href') for product in products]
+                
+                for product_link in product_links:
+                    self.scrape_product(product_link)
+                self.driver.quit()
+                self.setup_driver()
+                self.driver.get(self.scrape_url)
+                time.sleep(2)
+                try:
+                    for i in range(page_number):
+                        print(f'click {i}')
+                        pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
+                        next_button = pagination_container.find_element(By.XPATH, '//li[@class="ais-Pagination-item ais-Pagination-item--nextPage"]//a')
+                        self.driver.execute_script("arguments[0].click();", next_button)
+                        time.sleep(3)
+                    page_number += 1
+                    print(f'Page {page_number}')
+                except Exception as e:
+                    print(e)
+                    break
 
     def cleanup(self):
         self.driver.close()
