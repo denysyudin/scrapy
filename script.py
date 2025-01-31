@@ -50,7 +50,7 @@ class RelectricCircuitBreakerScraper:
         re_certified_price = price_list[0].text.strip('$').strip(',')
         re_certified_plus_price = price_list[1].text.strip('$').strip(',')
         new_price = price_list[2].text.strip('$').strip(',')
-
+        print(re_certified_price, re_certified_plus_price, new_price)
         re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 0
         re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 0
         new_price = float(new_price) if self.is_float(new_price) else 0
