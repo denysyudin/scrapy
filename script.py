@@ -50,6 +50,8 @@ class RelectricCircuitBreakerScraper:
         price_container = self.driver.find_element(By.XPATH, '//div[@id="product-buy-box"]')
         price_list = price_container.find_elements(By.XPATH, './/p[@class="price-att"]')
         title_list = price_container.find_elements(By.XPATH, './/span[@class="name-att"]')
+        re_certified_price = 'NA'
+        new_price = 'NA'
         for index, name in enumerate(title_list):
             if name.text.lower() == 're-certified':
                 re_certified_price = price_list[index].text.strip('$').replace(',', '')
