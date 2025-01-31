@@ -12,7 +12,6 @@ class RelectricCircuitBreakerScraper:
     def __init__(self):
         self.csv_file = "scraped_data.csv"
         self.scrape_url = "https://www.relectric.com/circuit-breakers/molded-case"
-        self.setup_csv()
         self.setup_driver()
 
     def setup_driver(self):
