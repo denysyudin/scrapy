@@ -50,16 +50,27 @@ class RelectricCircuitBreakerScraper:
         re_certified_price = price_list[0].text.strip('$').replace(',', '')
         re_certified_plus_price = price_list[1].text.strip('$').replace(',', '')
         new_price = price_list[2].text.strip('$').replace(',', '')
-        print(re_certified_price, re_certified_plus_price, new_price)
         re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 0
         re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 0
         new_price = float(new_price) if self.is_float(new_price) else 0
         
         re_certified_price = min(re_certified_price, re_certified_plus_price)
 
+        specification_table = self.driver.find_elements(By.XPATH, '//table//tbody//tr')
+        specifications = {}
+        for specification in specification_table:
+            specification_name = specification.find_element(By.XPATH, './/td[1]').text
+            specification_value = specification.find_element(By.XPATH, './/td[2]').text
+            specifications[specification_name] = specification_value
 
+        product_data = {
+            'title': title,
+            're_certified_price': re_certified_price,
+            'new_price': new_price,
+            'specifications': specifications
+        }
+        print(product_data)
 
-        print(title, re_certified_price, new_price, re_certified_plus_price)
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
         time.sleep(2)
