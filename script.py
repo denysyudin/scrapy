@@ -49,16 +49,14 @@ class RelectricCircuitBreakerScraper:
         re_certified_price = price_list[0].text
         re_certified_plus_price = price_list[1].text
         new_price = price_list[2].text
-        print(re_certified_price, re_certified_plus_price, new_price)
-        # re_certified_plus_price = self.driver.find_elements(By.XPATH, '//div[contains(@class, "has-price")]')[1].find_elements(By.XPATH, './/p[@class= "price-att"]').text
-        # new_price = self.driver.find_elements(By.XPATH, '//div[contains(@class, "has-price")]')[2].find_elements(By.XPATH, './/p[@class= "price-att"]').text
 
-        # re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 0
-        # re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 0
-        # new_price = float(new_price) if self.is_float(new_price) else 0
+        re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 0
+        re_certified_plus_price = float(re_certified_plus_price) if self.is_float(re_certified_plus_price) else 0
+        new_price = float(new_price) if self.is_float(new_price) else 0
         
-        # re_certified_price = min(re_certified_price, re_certified_plus_price)
+        re_certified_price = min(re_certified_price, re_certified_plus_price)
 
+        print(title, re_certified_price, new_price, re_certified_plus_price)
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
         time.sleep(2)
