@@ -45,8 +45,11 @@ class RelectricCircuitBreakerScraper:
         title = title_bar.find_element(By.XPATH, './/h1').text
         
         price_container = self.driver.find_element(By.XPATH, '//div[@id="product-buy-box"]')
-        re_certified_price = price_container.find_elements(By.XPATH, './/p[@class="price-att"]')
-        print(re_certified_price)
+        price_list = price_container.find_elements(By.XPATH, './/p[@class="price-att"]')
+        re_certified_price = price_list[0].text
+        re_certified_plus_price = price_list[1].text
+        new_price = price_list[2].text
+        print(re_certified_price, re_certified_plus_price, new_price)
         # re_certified_plus_price = self.driver.find_elements(By.XPATH, '//div[contains(@class, "has-price")]')[1].find_elements(By.XPATH, './/p[@class= "price-att"]').text
         # new_price = self.driver.find_elements(By.XPATH, '//div[contains(@class, "has-price")]')[2].find_elements(By.XPATH, './/p[@class= "price-att"]').text
 
