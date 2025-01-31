@@ -120,7 +120,7 @@ class RelectricCircuitBreakerScraper:
                     self.scrape_product(product_link)
                 self.driver.quit()
                 self.setup_driver()
-                self.driver.get(self.scrape_url)
+                self.driver.get(url)
                 time.sleep(2)
                 try:
                     for i in range(page_number):
