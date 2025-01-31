@@ -41,9 +41,9 @@ class RelectricCircuitBreakerScraper:
         self.driver.get(product_url)
         time.sleep(2)
         
-        # title_bar = self.driver.find_element(By.XPATH, '//div[@class="row product-title-bar"]')
-        # title = title_bar.find_element(By.XPATH, './/h1').text
-        # print(title)
+        title_bar = self.driver.find_element(By.XPATH, '//div[contains(@class, "product-title-bar")]')
+        title = title_bar.find_element(By.XPATH, './/h1/text()').get()
+        print(title)
         
         # re_certified_price = self.driver.find_elements(By.XPATH, '//div[contains(@class, "has-price")]')[0].find_elements(By.XPATH, './/p[@class= "price-att"]').text
         # re_certified_plus_price = self.driver.find_elements(By.XPATH, '//div[contains(@class, "has-price")]')[1].find_elements(By.XPATH, './/p[@class= "price-att"]').text
@@ -54,6 +54,7 @@ class RelectricCircuitBreakerScraper:
         # new_price = float(new_price) if self.is_float(new_price) else 0
         
         # re_certified_price = min(re_certified_price, re_certified_plus_price)
+        self.driver.close()
 
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
@@ -62,7 +63,7 @@ class RelectricCircuitBreakerScraper:
             product_container = self.driver.find_element(By.XPATH, '//ol[@class="ais-Hits-list"]')
             products = product_container.find_elements(By.XPATH, './/li[@class="ais-Hits-item"]')
             
-            product_links = ["https://www.relectric.com/circuit-breakers/molded-case" + product.find_element(By.XPATH, './/a').get_attribute('href') for product in products]
+            product_links = [product.find_element(By.XPATH, './/a').get_attribute('href') for product in products]
             
             for product_link in product_links:
                 self.scrape_product(product_link)
@@ -75,6 +76,7 @@ class RelectricCircuitBreakerScraper:
                 break
 
     def cleanup(self):
+        self.driver.close()
         self.driver.quit()
 
 def main():
