@@ -101,10 +101,11 @@ class RelectricCircuitBreakerScraper:
             try:
                 pagination_container = self.driver.find_element(By.XPATH, '//div[@class="ais-Pagination"]')
                 next_button = pagination_container.find_element(By.XPATH, '//li[@class="ais-Pagination-item ais-Pagination-item--nextPage"]//a')
-                self.driver.execute_script("arguments[0].click();", next_button)
+                for i in range(page_number):
+                    self.driver.execute_script("arguments[0].click();", next_button)
+                    time.sleep(3)
                 page_number += 1
                 print(f'Page {page_number}')
-                time.sleep(3)
             except Exception as e:
                 print(e)
                 break
