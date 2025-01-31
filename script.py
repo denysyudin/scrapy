@@ -91,7 +91,8 @@ class RelectricCircuitBreakerScraper:
             
             for product_link in product_links:
                 self.scrape_product(product_link)
-                self.driver.close()
+            self.driver.close()
+            self.setup_driver()
             self.driver.get(self.scrape_url)
             time.sleep(2)
             try:
