@@ -54,7 +54,6 @@ class RelectricCircuitBreakerScraper:
         # new_price = float(new_price) if self.is_float(new_price) else 0
         
         # re_certified_price = min(re_certified_price, re_certified_plus_price)
-        self.driver.close()
 
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
