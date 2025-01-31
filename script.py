@@ -38,8 +38,8 @@ class RelectricCircuitBreakerScraper:
 
     def scrape_product(self, product_url):
         print(product_url)
-        # self.driver.get(product_url)
-        # time.sleep(2)
+        self.driver.get(product_url)
+        time.sleep(2)
         
         # title_bar = self.driver.find_element(By.XPATH, '//div[@class="row product-title-bar"]')
         # title = title_bar.find_element(By.XPATH, './/h1').text
