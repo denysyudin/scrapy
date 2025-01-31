@@ -74,8 +74,8 @@ class RelectricCircuitBreakerScraper:
             'new_price': new_price,
             'specifications': specifications
         }
-        # response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
-        # print(response.json())
+        response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
+        print(response.json())
 
     def scrape_all_products(self):
         self.driver.get(self.scrape_url)
