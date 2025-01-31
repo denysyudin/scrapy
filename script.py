@@ -77,6 +77,7 @@ class RelectricCircuitBreakerScraper:
             'new_price': new_price,
             'specifications': specifications
         }
+        print(product_data)
         response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
         print(response.json())
 
