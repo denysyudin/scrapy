@@ -8,9 +8,9 @@ class RelectricCircuitBreakerScraper:
     def __init__(self):
         self.scrape_url = [
             # "https://www.relectric.com/circuit-breakers/molded-case",
-            "https://www.relectric.com/circuit-breakers/miniature",
-            "https://www.relectric.com/circuit-breakers/insulated-case",
-            "https://www.relectric.com/busway/bus-plugs",
+            # "https://www.relectric.com/circuit-breakers/miniature",
+            # "https://www.relectric.com/circuit-breakers/insulated-case",
+            # "https://www.relectric.com/busway/bus-plugs",
             "https://www.relectric.com/busway/tapbox",
             "https://www.relectric.com/busway/elbows-and-tees",
             "https://www.relectric.com/busway/bus-duct",
