@@ -6,24 +6,25 @@ import requests
 
 class RelectricCircuitBreakerScraper:
     def __init__(self):
-        self.scrape_url = ["https://www.relectric.com/circuit-breakers/molded-case",
-                           "https://www.relectric.com/circuit-breakers/miniature",
-                           "https://www.relectric.com/circuit-breakers/insulated-case",
-                           "https://www.relectric.com/busway/bus-plugs",
-                           "https://www.relectric.com/busway/tapbox",
-                           "https://www.relectric.com/busway/elbows-and-tees",
-                           "https://www.relectric.com/busway/bus-duct",
-                           "https://www.relectric.com/busway/parts",
-                           "https://www.relectric.com/motor-control/contactors",
-                           "http://relectric.com/motor-control/starters",
-                           "https://www.relectric.com/motor-control/variable-frequency-drives",
-                           "https://www.relectric.com/transformers/general-purpose",
-                           "https://www.relectric.com/transformers/buck-boost",
-                           "https://www.relectric.com/transformers/control-power",
-                           "https://www.relectric.com/automation/plcs",
-                           "https://www.relectric.com/automation/sensors",
-                           "https://www.relectric.com/automation/control-relays",
-                           "https://www.relectric.com/transformers/control-power"]
+        self.scrape_url = [
+            # "https://www.relectric.com/circuit-breakers/molded-case",
+            "https://www.relectric.com/circuit-breakers/miniature",
+            "https://www.relectric.com/circuit-breakers/insulated-case",
+            "https://www.relectric.com/busway/bus-plugs",
+            "https://www.relectric.com/busway/tapbox",
+            "https://www.relectric.com/busway/elbows-and-tees",
+            "https://www.relectric.com/busway/bus-duct",
+            "https://www.relectric.com/busway/parts",
+            "https://www.relectric.com/motor-control/contactors",
+            "http://relectric.com/motor-control/starters",
+            "https://www.relectric.com/motor-control/variable-frequency-drives",
+            "https://www.relectric.com/transformers/general-purpose",
+            "https://www.relectric.com/transformers/buck-boost",
+            "https://www.relectric.com/transformers/control-power",
+            "https://www.relectric.com/automation/plcs",
+            "https://www.relectric.com/automation/sensors",
+            "https://www.relectric.com/automation/control-relays",
+            "https://www.relectric.com/transformers/control-power"]
 
         self.setup_driver()
 
