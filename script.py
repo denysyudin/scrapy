@@ -80,11 +80,11 @@ class RelectricCircuitBreakerScraper:
     def insert_data(self, product_data, index):
         data = pd.read_csv('products.csv')
         if data['condition'][index] == 'New':
-            price = float(product_data['new_price'].replace("$", "").replace(",", ""))
+            price = float(product_data['data']['new_price'].replace("$", "").replace(",", ""))
             data.at[index, 'relectricbreakers_new'] = price
 
         elif data['condition'][index] == 'Used':
-            price = float(product_data['re_certified_price'].replace("$", "").replace(",", ""))
+            price = float(product_data['data']['re_certified_price'].replace("$", "").replace(",", ""))
             print(f"Setting relectricbreakers_used price to {price}")
             data.at[index, 'relectricbreakers_used'] = price
             print(f"After setting, value is: {data.at[index, 'relectricbreakers_used']}")
