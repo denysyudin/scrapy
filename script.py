@@ -113,7 +113,7 @@ class RelectricCircuitBreakerScraper:
                 re_certified_price = 'NA'
                 new_price = 'NA'
                 for index, name in enumerate(title_list):
-                    print(name.text.lower())
+                    print(name.text.lower(), price_list[index].text)
                     if name.text.lower() == 're-certified':
                         re_certified_price = price_list[index].text.strip('$').replace(',', '')
                     if name.text.lower() == 're-certified plus':
@@ -122,6 +122,7 @@ class RelectricCircuitBreakerScraper:
                         new_price = price_list[index].text.strip('$').replace(',', '')
                     if name.text.lower() == 'new surplus':
                         new_price = price_list[index].text.strip('$').replace(',', '')
+                    print(re_certified_price, new_price)
                 re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
                 new_price = float(new_price) if self.is_float(new_price) else 'NA'
                     
