@@ -7,7 +7,7 @@ import requests
 class RelectricCircuitBreakerScraper:
     def __init__(self):
         self.scrape_url = [
-            # "https://www.relectric.com/circuit-breakers/molded-case",
+            "https://www.relectric.com/circuit-breakers/molded-case",
             # "https://www.relectric.com/circuit-breakers/miniature",
             # "https://www.relectric.com/circuit-breakers/insulated-case",
             # "https://www.relectric.com/busway/bus-plugs",
@@ -17,7 +17,7 @@ class RelectricCircuitBreakerScraper:
             # "https://www.relectric.com/busway/parts",
             # "https://www.relectric.com/motor-control/contactors",
             # "http://relectric.com/motor-control/starters",
-            "https://www.relectric.com/motor-control/variable-frequency-drives",
+            # "https://www.relectric.com/motor-control/variable-frequency-drives",
             # "https://www.relectric.com/transformers/general-purpose",
             # "https://www.relectric.com/transformers/buck-boost",
             # "https://www.relectric.com/transformers/control-power",
@@ -63,6 +63,7 @@ class RelectricCircuitBreakerScraper:
     def scrape_product(self, product_url):
         try:
             print(product_url)
+            product_url = "https://www.relectric.com/mal36800"
             self.driver.get(product_url)
             time.sleep(2)
             
