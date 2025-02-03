@@ -80,14 +80,12 @@ class RelectricCircuitBreakerScraper:
     def insert_data(self, product_data, index):
         data = pd.read_csv('products.csv')
         if data['condition'][index] == 'New':
-            price = float(product_data['data']['new_price'].replace("$", "").replace(",", ""))
+            price = product_data['data']['new_price']
             data.at[index, 'relectricbreakers_new'] = price
 
         elif data['condition'][index] == 'Used':
-            price = float(product_data['data']['re_certified_price'].replace("$", "").replace(",", ""))
-            print(f"Setting relectricbreakers_used price to {price}")
+            price = product_data['data']['re_certified_price']
             data.at[index, 'relectricbreakers_used'] = price
-            print(f"After setting, value is: {data.at[index, 'relectricbreakers_used']}")
 
     def scrape_product(self):
         for index_url, product_url in enumerate(self.scrape_url):
@@ -122,8 +120,14 @@ class RelectricCircuitBreakerScraper:
                     if name.text.lower() == 'new surplus' and '$' in price_list[index].text:
                         print(1)
                         new_price = price_list[index].text.strip('$').replace(',', '')
-                # re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
-                # new_price = float(new_price) if self.is_float(new_price) else 'NA'
+                try:
+                    re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
+                except:
+                    re_certified_price = 'NA'
+                try:
+                    new_price = float(new_price) if self.is_float(new_price) else 'NA'
+                except:
+                    new_price = 'NA'
                     
                 specification_table = self.driver.find_elements(By.XPATH, '//table//tbody//tr')
                 specifications = {}
