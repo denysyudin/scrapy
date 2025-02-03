@@ -122,9 +122,8 @@ class RelectricCircuitBreakerScraper:
                     if name.text.lower() == 'new surplus' and '$' in price_list[index].text:
                         print(1)
                         new_price = price_list[index].text.strip('$').replace(',', '')
-                    print(re_certified_price, new_price)
-                re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
-                new_price = float(new_price) if self.is_float(new_price) else 'NA'
+                # re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
+                # new_price = float(new_price) if self.is_float(new_price) else 'NA'
                     
                 specification_table = self.driver.find_elements(By.XPATH, '//table//tbody//tr')
                 specifications = {}
@@ -143,6 +142,7 @@ class RelectricCircuitBreakerScraper:
                         'specifications': specifications
                     }
                 }
+                print(product_data)
                 self.insert_data(product_data, index_url)
                 # # print(product_data)
                 # response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
