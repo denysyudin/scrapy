@@ -100,7 +100,8 @@ class RelectricCircuitBreakerScraper:
                     title_bar = self.driver.find_element(By.XPATH, '//div[contains(@class, "product-title-bar")]')
                     title = title_bar.find_element(By.XPATH, './/h1').text
                 except:
-                    return
+                    print(f"Error getting title for {product_url}")
+                    continue
 
                 subtitle = title_bar.find_element(By.XPATH, '//span[@class="h4"]').text.replace('Item # ', '')
 
