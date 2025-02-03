@@ -33,12 +33,12 @@ class RelectricCircuitBreakerScraper:
             ]
 
         self.setup_driver()
-        self.create_url()
         self.data = pd.read_csv('products.csv')
         self.data['circuitbreakers_new'] = np.nan
         self.data['circuitbreakers_used'] = np.nan
         self.data['relectric_new'] = np.nan
         self.data['relectric_used'] = np.nan
+        self.create_url()
 
     def setup_driver(self):
         # Set proxy environment variables
