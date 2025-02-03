@@ -158,8 +158,7 @@ class RelectricCircuitBreakerScraper:
 def main():
     scraper = RelectricCircuitBreakerScraper()
     try:
-        print(scraper.scrape_url)
-        # scraper.scrape_product()
+        scraper.scrape_product()
     finally:
         scraper.cleanup()
         scraper.data.to_csv('updated_products.csv', index=False)
