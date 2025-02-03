@@ -23,8 +23,7 @@ class RelectricCircuitBreakerScraper:
             "https://www.relectric.com/transformers/control-power",
             "https://www.relectric.com/automation/plcs",
             "https://www.relectric.com/automation/sensors",
-            "https://www.relectric.com/automation/control-relays",
-            "https://www.relectric.com/transformers/control-power"]
+            "https://www.relectric.com/automation/control-relays"]
 
         self.setup_driver()
 
@@ -127,7 +126,7 @@ class RelectricCircuitBreakerScraper:
         for url in self.scrape_url:
             try:
                 self.driver.get(url)
-                page_number = 1
+                page_number = 30
                 time.sleep(2)
                 while True:
                     try:
