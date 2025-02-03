@@ -126,7 +126,7 @@ class RelectricCircuitBreakerScraper:
         for url in self.scrape_url:
             try:
                 self.driver.get(url)
-                page_number = 30
+                page_number = 29
                 time.sleep(2)
                 while True:
                     try:
