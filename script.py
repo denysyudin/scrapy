@@ -66,9 +66,13 @@ class RelectricCircuitBreakerScraper:
         self.driver.implicitly_wait(10)
 
     def create_url(self):
+        prev_url = ''
         for item in self.data['Part Number (Handle)']:
+            if prev_url == item:
+                continue
             url = f"https://www.relectric.com/{item}"
             self.scrape_url.append(url)
+            prev_url = item
 
     @staticmethod
     def is_float(string):
