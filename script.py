@@ -78,14 +78,14 @@ class RelectricCircuitBreakerScraper:
             return False
         
     def insert_data(self, product_data, index):
-        data = pd.read_csv('products.csv')
-        if data['condition'][index] == 'New':
+        print(self.data['condition'][index])
+        if self.data['condition'][index] == 'New':
             price = product_data['data']['new_price']
-            data.at[index, 'relectricbreakers_new'] = price
+            self.data.at[index, 'relectricbreakers_new'] = price
 
-        elif data['condition'][index] == 'Used':
+        elif self.data['condition'][index] == 'Used':
             price = product_data['data']['re_certified_price']
-            data.at[index, 'relectricbreakers_used'] = price
+            self.data.at[index, 'relectricbreakers_used'] = price
 
     def scrape_product(self):
         for index_url, product_url in enumerate(self.scrape_url):
