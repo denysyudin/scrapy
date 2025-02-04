@@ -96,7 +96,7 @@ class RelectricCircuitBreakerScraper:
             # if index_url < 1470:
             #     continue
             try:
-                print(product_url)
+                print(index_url, product_url)
                 self.driver.get(product_url)
                 # time.sleep(2)
                 
