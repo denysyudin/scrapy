@@ -7,6 +7,7 @@ from pymongo.server_api import ServerApi
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import requests
 
 dotenv.load_dotenv()
 
