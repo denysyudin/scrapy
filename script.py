@@ -94,7 +94,7 @@ class RelectricCircuitBreakerScraper:
 
     def scrape_product(self):
         for index_url, product_url in enumerate(self.scrape_url):
-            if index_url < 557:
+            if index_url < 717:
                 continue
             try:
                 print(index_url, product_url)
