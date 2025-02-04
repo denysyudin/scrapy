@@ -65,9 +65,13 @@ class RelectricCircuitBreakerScraper:
         self.driver.implicitly_wait(10)
 
     def create_url(self):
+        prev_handle = ''
         for item in self.data['Part Number (Handle)']:
+            if prev_handle == item:
+                continue
             url = f"https://www.relectric.com/{item}"
             self.scrape_url.append(url)
+            prev_handle = item
 
     @staticmethod
     def is_float(string):
@@ -78,7 +82,7 @@ class RelectricCircuitBreakerScraper:
             return False
         
     def insert_data(self, product_data, index):
-        print(self.data['condition'][index])
+        # print(self.data['condition'][index])
         if self.data['condition'][index] == 'New':
             price = product_data['data']['new_price']
             self.data.at[index, 'relectricbreakers_new'] = price
@@ -89,12 +93,12 @@ class RelectricCircuitBreakerScraper:
 
     def scrape_product(self):
         for index_url, product_url in enumerate(self.scrape_url):
-            if index_url < 1470:
-                continue
+            # if index_url < 1470:
+            #     continue
             try:
                 print(product_url)
                 self.driver.get(product_url)
-                time.sleep(2)
+                # time.sleep(2)
                 
                 try:
                     title_bar = self.driver.find_element(By.XPATH, '//div[contains(@class, "product-title-bar")]')
@@ -115,12 +119,11 @@ class RelectricCircuitBreakerScraper:
                 for index, name in enumerate(title_list):
                     if name.text.lower() == 're-certified' and '$' in price_list[index].text:
                         re_certified_price = price_list[index].text.strip('$').replace(',', '')
-                    if name.text.lower() == 're-certified plus' and '$' in price_list[index].text:
-                        re_certified_price = price_list[index].text.strip('$').replace(',', '')
+                    # if name.text.lower() == 're-certified plus' and '$' in price_list[index].text:
+                    #     re_certified_price = price_list[index].text.strip('$').replace(',', '')
                     if name.text.lower() == 'new' and '$' in price_list[index].text:
                         new_price = price_list[index].text.strip('$').replace(',', '')
-                    if name.text.lower() == 'new surplus' and '$' in price_list[index].text:
-                        print(1)
+                    elif name.text.lower() == 'new surplus' and '$' in price_list[index].text:
                         new_price = price_list[index].text.strip('$').replace(',', '')
                 try:
                     re_certified_price = float(re_certified_price) if self.is_float(re_certified_price) else 'NA'
