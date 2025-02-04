@@ -150,8 +150,8 @@ class RelectricCircuitBreakerScraper:
                 print(product_data)
                 self.insert_data(product_data, index_url)
                 # # print(product_data)
-                # response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
-                # print(response.json())
+                response = requests.post('http://localhost:8000/api/superbreakers', json=product_data)
+                print(response.json())
             except Exception as e:
                 print(f"Error scraping product {product_url}: {str(e)}")
 
